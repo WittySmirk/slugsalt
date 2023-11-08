@@ -17,3 +17,12 @@ To create a production version of your app:
 ```bash
 pnpm run build
 ```
+
+## TODO
+- [ ] Test Component
+- [ ] Server Side Questions
+    - [ ] Bottlenecked Server
+- [ ] Server Side Validation
+    - [ ] Post to Database
+- [ ] Authentication
+    - [ ] Middleware based on User
