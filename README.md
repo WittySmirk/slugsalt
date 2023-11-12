@@ -36,6 +36,6 @@ pnpm run build
     - [x] Login Button
   - [ ] Test Component
     - [x] Custom Radios
-    - [ ] Spacing
-    - [ ] Submit button
+    - [x] Spacing
+    - [x] Submit button
     - [ ] Loading wheel
