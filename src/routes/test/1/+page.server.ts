@@ -1,4 +1,4 @@
-import type { PageLoad } from "./$types"
+import type { PageServerLoad } from "./$types"
 
 async function returnData() {
     // purposefully bottleneck
@@ -14,6 +14,6 @@ async function returnData() {
     }
 }
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params }) => {
     return await returnData();
 }

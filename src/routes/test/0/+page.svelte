@@ -5,4 +5,4 @@
     export let data: PageData;
 </script>
 
-<Test question={data}/>
+<Test question={data} />

@@ -1,4 +1,5 @@
-# Slug Salt 
+# Slug Salt
+
 Testing if Web Application performance has a greater impact on students with traditionally lower scores
 
 ## Developing
@@ -19,10 +20,22 @@ pnpm run build
 ```
 
 ## TODO
-- [ ] Test Component
+
+- [x] Test Component
 - [ ] Server Side Questions
-    - [ ] Bottlenecked Server
-- [ ] Server Side Validation
+  - [x] Bottlenecked Server
+  - [ ] Test entered in database
+  - [ ] Server Side Validation
     - [ ] Post to Database
 - [ ] Authentication
-    - [ ] Middleware based on User
+  - [ ] Google OAuth
+  - [ ] Whitelist
+  - [ ] Middleware based on User
+- [ ] Styling
+  - [ ] Home Page
+    - [x] Login Button
+  - [ ] Test Component
+    - [x] Custom Radios
+    - [ ] Spacing
+    - [ ] Submit button
+    - [ ] Loading wheel
