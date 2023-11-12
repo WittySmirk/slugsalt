@@ -13,10 +13,10 @@
 	export let question: Question;
 </script>
 
-<form class="bg-gray-200 w-1/2 h-1/2 rounded-xl flex justify-evenly flex-col">
+<form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative">
 	<h1 class="text-3xl font-semibold">{question.asks}</h1>
 	{#each question.answers as answer, i}
-		<div>
+		<div class="inline-flex">
 			<input
 				type="radio"
 				name="answers"
@@ -26,15 +26,15 @@
 			/>
 			<label
 				for={answer.id.toString()}
-				class="text-2xl font-semibold bg-white rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-300 peer-checked:text-white"
+				class="text-2xl font-semiboldbg-white outline outline-2 rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-400 peer-checked:text-white mr-5"
 				>{alpha[i].toUpperCase()}</label
 			>
-			<label for={answer.id.toString()} class="text-2xl">{answer.label}<br /></label>
+			<label for={answer.id.toString()} class="text-2xl pt-1">{answer.label}<br /></label>
 		</div>
 	{/each}
 	<input
 		type="submit"
 		value="Next"
-		class="rounded-xl bg-green-300 pl-5 pr-5 pt-2 pb-2 text-white font-semibold"
+		class="text-3xl absolute w-min h-min bottom-0 right-0 rounded-xl bg-green-400 pl-5 pr-5 pt-2 pb-2 text-white font-semibold"
 	/>
 </form>
