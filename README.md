@@ -31,11 +31,10 @@ pnpm run build
   - [ ] Google OAuth
   - [ ] Whitelist
   - [ ] Middleware based on User
-- [ ] Styling
-  - [ ] Home Page
+- [x] Styling
+  - [x] Home Page
     - [x] Login Button
-  - [ ] Test Component
+  - [x] Test Component
     - [x] Custom Radios
     - [x] Spacing
     - [x] Submit button
-    - [ ] Loading wheel
