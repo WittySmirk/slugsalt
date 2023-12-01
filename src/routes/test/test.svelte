@@ -14,14 +14,13 @@
 </script>
 
 <form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative">
-	<h1 class="text-3xl font-semibold">{question.asks}</h1>
+	<h1 class="text-3xl font-semibold break-words w-full">{question.asks}</h1>
 	{#each question.answers as answer, i}
 		<div class="inline-flex">
 			<input
 				type="radio"
 				name="answers"
 				id={answer.id.toString()}
-				on:change={() => console.log('lol')}
 				class="appearance-none peer"
 			/>
 			<label
@@ -29,7 +28,7 @@
 				class="text-2xl font-semiboldbg-white outline outline-2 rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-400 peer-checked:text-white mr-5"
 				>{alpha[i].toUpperCase()}</label
 			>
-			<label for={answer.id.toString()} class="text-2xl pt-1">{answer.label}<br /></label>
+			<label for={answer.id.toString()} class="text-2xl break-words w-full">{answer.label}<br /></label>
 		</div>
 	{/each}
 	<input
