@@ -34,8 +34,7 @@ pnpm run build
 - [ ] Styling
   - [ ] Home Page
     - [x] Login Button
-  - [ ] Test Component
+  - [x] Test Component
     - [x] Custom Radios
     - [x] Spacing
     - [x] Submit button
-    - [ ] Loading wheel
