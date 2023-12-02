@@ -28,7 +28,7 @@ pnpm run build
   - [ ] Server Side Validation
     - [ ] Post to Database
 - [ ] Authentication
-  - [ ] Google OAuth
+  - [x] Google OAuth
   - [ ] Whitelist
   - [ ] Middleware based on User
 - [x] Styling

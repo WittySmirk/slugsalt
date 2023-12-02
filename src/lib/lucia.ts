@@ -16,7 +16,8 @@ export const auth = lucia({
 	middleware: sveltekit(),
 	getUserAttributes: (data) => {
 		return {
-			googleEmail: data.email
+			//@ts-ignore
+			googleEmail: data.googleEmail
 		}
 	}
 });
