@@ -2,7 +2,7 @@ import { auth, googleAuth } from '$lib/lucia';
 import { OAuthRequestError } from '@lucia-auth/oauth';
 
 export const GET = async ({ url, cookies, locals }) => {
-	const session = await locals.auth.session;
+	const session = await locals.auth.validate();
 	if (session) {
 		return new Response(null, {
 			status: 302,
@@ -15,7 +15,8 @@ export const GET = async ({ url, cookies, locals }) => {
 	const state = url.searchParams.get('state');
 	const code = url.searchParams.get('code');
 
-	if (!storedState || state || storedState !== state || !code) {
+	if (!storedState || !state || storedState !== state || !code) {
+		console.log(storedState, state, code)
 		return new Response(null, {
 			status: 400
 		});
@@ -26,6 +27,7 @@ export const GET = async ({ url, cookies, locals }) => {
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
+			console.log(googleUser)
 			const user = await createUser({
 				attributes: {
 					googleEmail: googleUser.email
@@ -50,10 +52,13 @@ export const GET = async ({ url, cookies, locals }) => {
 		});
 	} catch (e) {
 		if (e instanceof OAuthRequestError) {
+			console.log(e)
+			console.log("we here")
 			return new Response(null, {
 				status: 400
 			});
 		}
+		console.log(e)
 		return new Response(null, {
 			status: 500
 		});
