@@ -27,7 +27,6 @@ export const GET = async ({ url, cookies, locals }) => {
 		const getUser = async () => {
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
-			console.log(googleUser)
 			const user = await createUser({
 				attributes: {
 					googleEmail: googleUser.email
@@ -52,13 +51,11 @@ export const GET = async ({ url, cookies, locals }) => {
 		});
 	} catch (e) {
 		if (e instanceof OAuthRequestError) {
-			console.log(e)
 			console.log("we here")
 			return new Response(null, {
 				status: 400
 			});
 		}
-		console.log(e)
 		return new Response(null, {
 			status: 500
 		});
