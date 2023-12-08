@@ -2,6 +2,10 @@
 
 Testing if Web Application performance has a greater impact on students with traditionally lower scores
 
+## Archetecture
+Here is the basic database architecture for the app:
+<img src="/docs/dbarchitecture.png">
+
 ## Developing
 
 ```bash
@@ -28,7 +32,7 @@ pnpm run build
   - [ ] Server Side Validation
     - [ ] Post to Database
 - [ ] Authentication
-  - [ ] Google OAuth
+  - [x] Google OAuth
   - [ ] Whitelist
   - [ ] Middleware based on User
 - [x] Styling
