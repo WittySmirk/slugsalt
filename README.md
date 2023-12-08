@@ -2,9 +2,6 @@
 
 Testing if Web Application performance has a greater impact on students with traditionally lower scores
 
-## Archetecture
-Here is the basic database architecture for the app:
-<img src="/docs/dbarch.png">
 
 ## Developing
 
