@@ -31,10 +31,10 @@ pnpm run build
   - [ ] Test entered in database
   - [ ] Server Side Validation
     - [ ] Post to Database
-- [ ] Authentication
+- [X] Authentication
   - [x] Google OAuth
-  - [ ] Whitelist
-  - [ ] Middleware based on User
+  - [X] Whitelist
+  - [X] Middleware based on User
 - [x] Styling
   - [x] Home Page
     - [x] Login Button

@@ -17,7 +17,9 @@ export const auth = lucia({
 	getUserAttributes: (data) => {
 		return {
 			//@ts-ignore
-			googleEmail: data.googleEmail
+			googleEmail: data.googleEmail,
+			//@ts-ignore
+			bottled: data.bottled
 		}
 	}
 });

@@ -22,7 +22,7 @@ export const user_session = sqliteTable('user_session', {
     idle_expires: blob('idle_expires', {mode: "bigint"}).notNull()
 })
 
-export const white_list = sqliteTable('white)list', {
+export const white_list = sqliteTable('white_list', {
     googleEmail: text('googleEmail').notNull(),
     bottled: int('bottled').notNull()
 })
