@@ -5,6 +5,6 @@ export const load: PageServerLoad = async ({locals}) => {
     const session = await locals.auth.validate();
     console.log(session)
     if (session) {
-        throw redirect(302, "/test/0")
+        redirect(302, "/test/0");
     }
 }
