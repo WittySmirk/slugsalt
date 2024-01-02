@@ -6,7 +6,8 @@ export const user = sqliteTable('user', {
     googleEmail: text('googleEmail').notNull(),
     currentQuestion: text('currentQuestion').references(() => question.id),
     correct: int('correct').default(0),
-    bottled: int('bottled')
+    bottled: int('bottled'),
+    lower: int('lower')
 })
 
 const user_key = sqliteTable('user_key', {
@@ -24,12 +25,13 @@ export const user_session = sqliteTable('user_session', {
 
 export const white_list = sqliteTable('white_list', {
     googleEmail: text('googleEmail').notNull(),
-    bottled: int('bottled').notNull()
+    bottled: int('bottled').notNull(),
+    lower: int('lower').notNull()
 })
 
 export const question = sqliteTable('question', {
     id: text('id').notNull().primaryKey(),
     question: text('question').notNull(),
-    answers: text('texts').notNull(),
+    answers: text('answers').notNull(),
     image: text('image')
 })

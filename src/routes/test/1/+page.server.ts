@@ -1,20 +1,19 @@
+import { db } from '$lib/drizzle/drizzle';
+import { question } from '$lib/drizzle/schema';
+import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 
-async function returnData() {
+async function returnData(locals: App.Locals) {
+    const session = await locals.auth.validate();
+    const cq = await db.select().from(question).where(eq(question.id, session?.user.currentQuestion));
     // purposefully bottleneck
     await new Promise(r => setTimeout(r, 1000))
     return {
-        asks: "What is ___?",
-        answers: [
-			{ id: 0, label: 'AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIA AWIUAWFUHAWFUHIAWW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW' },
-            { id: 1, label: "AIOFAQWIOFAWIFOHFI" },
-            { id: 2, label: "WUHFAFWUHFWFHU IA" },
-            { id: 3, label: "NVKJNAFNKWJAQFAWJKF" },
-        ]
+        asks: cq[0].question,
+        answers: JSON.parse(cq[0].answers)
     }
 }
 
-export const load: PageServerLoad = async ({ params }) => {
-	
-	return await returnData();
+export const load: PageServerLoad = async ({ locals }) => {
+	return await returnData(locals);
 };

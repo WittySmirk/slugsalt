@@ -1,13 +1,16 @@
+import { eq } from 'drizzle-orm';
+import { db } from '$lib/drizzle/drizzle';
+import { question } from '$lib/drizzle/schema';
+
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = ({ params }) => {
+export const load: PageServerLoad = async ({ locals }) => {
+	const session = await locals.auth.validate();
+	const cq = await db.select().from(question).where(eq(question.id, session?.user.currentQuestion));
+	console.log(JSON.parse(cq[0].answers));
+
 	return {
-		asks: 'What is ___?',
-		answers: [
-			{ id: 0, label: 'AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIA AWIUAWFUHAWFUHIAWW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW AWIUAWFUHAWFUHIAW' },
-			{ id: 1, label: 'AIOFAQWIOFAWIFOHFI' },
-			{ id: 2, label: 'WUHFAFWUHFWFHU IA' },
-			{ id: 3, label: 'NVKJNAFNKWJAQFAWJKF' }
-		]
-	};
+		asks: cq[0].question,
+		answers: JSON.parse(cq[0].answers)
+	}
 };

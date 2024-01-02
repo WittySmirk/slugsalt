@@ -4,6 +4,7 @@ CREATE TABLE user (
     currentQuestion TEXT,
     correct INTEGER DEFAULT 0,
     bottled INTEGER,
+    lower INTEGER,
     FOREIGN KEY (currentQuestion) REFERENCES question(id)
 );
 
@@ -24,7 +25,8 @@ CREATE TABLE user_session (
 
 CREATE TABLE white_list (
     googleEmail TEXT NOT NULL,
-    bottled INTEGER NOT NULL
+    bottled INTEGER NOT NULL,
+    lower INTEGER NOT NULL
 );
 
 CREATE TABLE question (

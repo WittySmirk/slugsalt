@@ -19,7 +19,11 @@ export const auth = lucia({
 			//@ts-ignore
 			googleEmail: data.googleEmail,
 			//@ts-ignore
-			bottled: data.bottled
+			currentQuestion: data.currentQuestion,
+			//@ts-ignore
+			bottled: data.bottled,
+			//@ts-ignore
+			lower: data.lower
 		}
 	}
 });
