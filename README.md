@@ -29,7 +29,7 @@ pnpm run build
 - [ ] Server Side Questions
   - [x] Bottlenecked Server
   - [ ] Test entered in database
-  - [ ] Server Side Validation
+  - [X] Server Side Validation
     - [ ] Post to Database
 - [X] Authentication
   - [x] Google OAuth

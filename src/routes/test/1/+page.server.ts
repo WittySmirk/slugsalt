@@ -1,6 +1,8 @@
 import { db } from '$lib/drizzle/drizzle';
 import { question } from '$lib/drizzle/schema';
 import { eq } from 'drizzle-orm';
+import { shuffle } from "$lib/utils";
+
 import type { PageServerLoad } from './$types';
 
 async function returnData(locals: App.Locals) {
@@ -10,7 +12,7 @@ async function returnData(locals: App.Locals) {
     await new Promise(r => setTimeout(r, 1000))
     return {
         asks: cq[0].question,
-        answers: JSON.parse(cq[0].answers)
+        answers: shuffle(JSON.parse(cq[0].answers))
     }
 }
 

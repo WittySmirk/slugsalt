@@ -13,14 +13,15 @@
 	export let question: Question;
 </script>
 
-<form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative">
+<form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative" method="POST">
 	<h1 class="text-3xl font-semibold break-words w-full">{question.asks}</h1>
 	{#each question.answers as answer, i}
 		<div class="inline-flex">
 			<input
 				type="radio"
-				name="answers"
+				name={"answers"}
 				id={answer.id.toString()}
+				value={answer.id.toString()}
 				class="appearance-none peer"
 			/>
 			<label
