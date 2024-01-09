@@ -1,6 +1,6 @@
-import { eq } from 'drizzle-orm';
+import { eq, sql } from 'drizzle-orm';
 import { db } from '$lib/drizzle/drizzle';
-import { question } from '$lib/drizzle/schema';
+import { question, user } from '$lib/drizzle/schema';
 import { shuffle } from "$lib/utils";
 
 import type { PageServerLoad } from './$types';
@@ -8,7 +8,8 @@ import type { Actions } from "./$types";
 
 export const load: PageServerLoad = async ({ locals }) => {
 	const session = await locals.auth.validate();
-	const cq = await db.select().from(question).where(eq(question.id, session?.user.currentQuestion));
+	const curQues = await db.selectDistinct({currentQuestion: user.currentQuestion}).from(user).where(eq(user.id, session?.user.userId!));
+	const cq = await db.select().from(question).where(eq(question.id, curQues[0].currentQuestion!));
 
 	return {
 		asks: cq[0].question,
@@ -17,16 +18,18 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request }) => {
+	default: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const answerId = Number(formData.get("answers"));
-		console.log(answerId);
 
+		const session  = await locals.auth.validate();
 		//Correct if id = 0
-		if (answerId !== 0) {
+		if (answerId == 0) {
 			//correct + 1;
+			await db.update(user).set({correct: sql`correct + 1`}).where(eq(user.id, session?.user.userId!));
 		}
 		//currentQuestion + 1;
+		await db.update(user).set({currentQuestion: sql`currentQuestion + 1`}).where(eq(user.id, session?.user.userId!));
 
 		//refresh
 	}

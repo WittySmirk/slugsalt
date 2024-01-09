@@ -30,7 +30,7 @@ pnpm run build
   - [x] Bottlenecked Server
   - [ ] Test entered in database
   - [X] Server Side Validation
-    - [ ] Post to Database
+    - [X] Post to Database
 - [X] Authentication
   - [x] Google OAuth
   - [X] Whitelist
