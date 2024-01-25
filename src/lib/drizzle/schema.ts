@@ -1,5 +1,4 @@
-import { relations, sql } from "drizzle-orm";
-import { blob, int, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { blob, int, sqliteTable, text, real } from "drizzle-orm/sqlite-core";
 
 export const user = sqliteTable('user', {
     id: text('id').notNull().primaryKey(),
@@ -7,7 +6,7 @@ export const user = sqliteTable('user', {
     currentQuestion: text('currentQuestion').references(() => question.id),
     correct: int('correct').default(0),
     bottled: int('bottled'),
-    lower: int('lower')
+    gpa: real('gpa')
 })
 
 const user_key = sqliteTable('user_key', {
@@ -23,11 +22,11 @@ export const user_session = sqliteTable('user_session', {
     idle_expires: blob('idle_expires', {mode: "bigint"}).notNull()
 })
 
-export const white_list = sqliteTable('white_list', {
+/*export const white_list = sqliteTable('white_list', {
     googleEmail: text('googleEmail').notNull(),
     bottled: int('bottled').notNull(),
     lower: int('lower').notNull()
-})
+})*/
 
 export const question = sqliteTable('question', {
     id: text('id').notNull().primaryKey(),

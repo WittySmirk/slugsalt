@@ -19,14 +19,14 @@
 		<div class="inline-flex">
 			<input
 				type="radio"
-				name={"answers"}
+				name="answers"
 				id={answer.id.toString()}
 				value={answer.id.toString()}
 				class="appearance-none peer"
 			/>
 			<label
 				for={answer.id.toString()}
-				class="text-2xl font-semiboldbg-white outline outline-2 rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-400 peer-checked:text-white mr-5"
+				class="text-2xl font-semibold bg-white outline outline-2 rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-400 peer-checked:text-white mr-5"
 				>{alpha[i].toUpperCase()}</label
 			>
 			<label for={answer.id.toString()} class="text-2xl break-words w-full">{answer.label}<br /></label>

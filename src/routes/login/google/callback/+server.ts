@@ -1,8 +1,5 @@
 import { auth, googleAuth } from '$lib/lucia';
 import { OAuthRequestError } from '@lucia-auth/oauth';
-import { eq } from 'drizzle-orm';
-import { db } from '$lib/drizzle/drizzle';
-import { white_list } from '$lib/drizzle/schema';
 
 declare class WHITELISTERROR extends Error {
 	request: Request;
@@ -36,19 +33,13 @@ export const GET = async ({ url, cookies, locals }) => {
 		const { getExistingUser, googleUser, createUser } = await googleAuth.validateCallback(code);
 
 		const getUser = async () => {
-			const permitted = await db.select().from(white_list).where(eq(white_list.googleEmail, googleUser.email!));
-			console.log(permitted[0])
-			if (!permitted[0]) {
-				throw WHITELISTERROR;
-			}
 			const existingUser = await getExistingUser();
 			if (existingUser) return existingUser;
 			const user = await createUser({
 				attributes: {
 					googleEmail: googleUser.email,
-					bottled: permitted[0].bottled,
-					lower: permitted[0].lower,
-					currentQuestion: "0"
+					currentQuestion: "0",
+                    bottled: Math.round(Math.random()),
 				}
 			});
 			return user;

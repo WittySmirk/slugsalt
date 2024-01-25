@@ -22,8 +22,8 @@ export const auth = lucia({
 			currentQuestion: data.currentQuestion,
 			//@ts-ignore
 			bottled: data.bottled,
-			//@ts-ignore
-			lower: data.lower
+            //@ts-ignore
+            gpa: data.gpa,
 		}
 	}
 });
