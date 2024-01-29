@@ -32,5 +32,6 @@ export const question = sqliteTable('question', {
     id: text('id').notNull().primaryKey(),
     question: text('question').notNull(),
     answers: text('answers').notNull(),
-    image: text('image')
+    image: text('image'),
+    paragraph: text('paragraph')
 })

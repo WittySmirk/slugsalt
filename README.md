@@ -11,9 +11,9 @@ Here is the basic database architecture for the app:
 ```bash
 pnpm run dev
 
-# or start the server and open the app in a new browser tab
-pnpm run dev -- --open
-```
+  
+
+
 
 ## Building
 
@@ -42,3 +42,5 @@ pnpm run build
     - [x] Custom Radios
     - [x] Spacing
     - [x] Submit button
+    - [X] Support for essays
+    - [ ] Persistent timer

@@ -23,15 +23,16 @@ CREATE TABLE user_session (
     FOREIGN KEY (user_id) REFERENCES user(id)
 );
 
+CREATE TABLE question (
+    id TEXT NOT NULL PRIMARY KEY,
+    question TEXT NOT NULL,
+    answers TEXT NOT NULL,
+    image TEXT,
+    paragraph TEXT
+);
+
 /*CREATE TABLE white_list (
     googleEmail TEXT NOT NULL,
     bottled INTEGER NOT NULL,
     lower INTEGER NOT NULL
 );*/
-
-CREATE TABLE question (
-    id TEXT NOT NULL PRIMARY KEY,
-    question TEXT NOT NULL,
-    answers TEXT NOT NULL,
-    image TEXT
-);

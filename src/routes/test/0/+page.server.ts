@@ -12,6 +12,8 @@ export const load: PageServerLoad = async ({ locals }) => {
 	const cq = await db.select().from(question).where(eq(question.id, curQues[0].currentQuestion!));
 
 	return {
+		id: Number(cq[0].id) + 1,
+		paragraph: cq[0].paragraph ? JSON.parse(cq[0].paragraph) : null,
 		asks: cq[0].question,
 		answers: shuffle(JSON.parse(cq[0].answers))
 	}
