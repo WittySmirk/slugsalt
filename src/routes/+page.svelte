@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { PageData } from "./$types";
 	import { header } from "./+layout.svelte";
 	header.set(`<h1 class="text-3xl text-center font-semibold">Slug Salt<h1>`);
 </script>

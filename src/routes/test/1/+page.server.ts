@@ -5,6 +5,7 @@ import { shuffle } from "$lib/utils";
 
 import type { PageServerLoad } from './$types';
 import type { Actions } from "./$types";
+import { redirect } from '@sveltejs/kit';
 
 async function returnData(locals: App.Locals) {
 	const session = await locals.auth.validate();
@@ -22,16 +23,18 @@ async function returnData(locals: App.Locals) {
 	await new Promise(r => setTimeout(r, 1000));
 
 	// If currentQuestion = 0, getTime add 15 minutes to it, put that in final time in db
+	let nEndTime = null;
 	if (Number(questionQ!.id) == 0 && !userQ!.endTime) {
 		const endTime = new Date().getTime() + 15 * 60 * 1000;
 		await db.update(user).set({ endTime: endTime }).where(eq(user.id, session?.user.userId!));
+		nEndTime = endTime;
 	}
 
 	return {
 		id: Number(questionQ!.id) + 1,
 		paragraph: questionQ!.paragraph ? JSON.parse(questionQ!.paragraph) : null,
 		asks: questionQ!.question,
-		endTime: userQ!.endTime,
+		endTime: nEndTime ? nEndTime : userQ!.endTime,
 		answers: shuffle(JSON.parse(questionQ!.answers))
 	}
 }
@@ -46,13 +49,19 @@ export const actions: Actions = {
 		const answerId = Number(formData.get("answers"));
 
 		const session = await locals.auth.validate();
+		
 		//Correct if id = 0
 		if (answerId == 0) {
 			//correct + 1;
 			await db.update(user).set({ correct: sql`correct + 1` }).where(eq(user.id, session?.user.userId!));
 		}
-		//currentQuestion + 1;
-		await db.update(user).set({ currentQuestion: sql`currentQuestion + 1` }).where(eq(user.id, session?.user.userId!));
+
+		try {
+			//currentQuestion + 1;
+			await db.update(user).set({ currentQuestion: sql`currentQuestion + 1` }).where(eq(user.id, session?.user.userId!));
+		} catch (e) {
+			redirect(302, "/test/finished");
+		}
 
 		//refresh
 	}

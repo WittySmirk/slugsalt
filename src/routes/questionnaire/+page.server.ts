@@ -27,7 +27,7 @@ export const actions: Actions = {
         }
         
 	    await db.update(user).set({gpa: Number(GPA)}).where(eq(user.id, session?.user.userId!));
-        redirect(302, "/");
+        redirect(302, "/")
         // refresh
     }
 }

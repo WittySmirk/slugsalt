@@ -19,51 +19,44 @@
 	import { alpha } from '$lib/misc';
 	import { onMount } from 'svelte';
 	import { header } from '../+layout.svelte';
+	import { goto } from '$app/navigation';
 	export let question: Question;
 
-	// minutes is /1000/60 seconds is /1000
-	//
+	let timeLeft;
 	onMount(() => {
+		timeLeft = question.endTime - new Date().getTime();
 		header.set(
 			`<h1 class="text-3xl text-center font-semibold">Slug Salt<h1>
 				<h1 class="text-xl font-semibold absolute top-0 mt-10">Current Question: ${
 					question.id
 				}</h1> <h1 class="text-xl font-semibold absolute right-0 mr-10 top-0 mt-10">Time Left: 
 					${
-						(Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
-							? Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
-							: '00') +
+						(Math.round(timeLeft / 60000) ? Math.round(timeLeft / 60000) : '00') +
 						':' +
-						(Math.round(
-							((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
-						)
-							? Math.round(
-									((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
-							  )
-							: '00')
+						(Math.round((timeLeft / 1000) % 60) >= 10
+							? Math.round((timeLeft / 1000) % 60)
+							: '0' + Math.round((timeLeft / 1000) % 60))
 					}
-			
-			</h1>`
+				`
 		);
 
 		setInterval(() => {
+			timeLeft = question.endTime - new Date().getTime();
+			if (timeLeft <= 0) {
+				alert("Time has run out for the test");
+				goto('/test/finished');
+			}
 			header.set(
 				`<h1 class="text-3xl text-center font-semibold">Slug Salt<h1>
 				<h1 class="text-xl font-semibold absolute top-0 mt-10">Current Question: ${
 					question.id
 				}</h1> <h1 class="text-xl font-semibold absolute right-0 mr-10 top-0 mt-10">Time Left: 
 					${
-						(Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
-							? Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
-							: '00') +
+						(Math.round(timeLeft / 60000) ? Math.round(timeLeft / 60000) : '00') +
 						':' +
-						(Math.round(
-							((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
-						)
-							? Math.round(
-									((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
-							  )
-							: '00')
+						(Math.round((timeLeft / 1000) % 60) >= 10
+							? Math.round((timeLeft / 1000) % 60)
+							: '0' + Math.round((timeLeft / 1000) % 60))
 					}
 				`
 			);
