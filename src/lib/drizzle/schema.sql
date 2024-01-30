@@ -5,6 +5,7 @@ CREATE TABLE user (
     correct INTEGER DEFAULT 0,
     bottled INTEGER,
     gpa REAL,
+    endTime INTEGER,
     FOREIGN KEY (currentQuestion) REFERENCES question(id)
 );
 

@@ -5,7 +5,6 @@
 </script>
 <script>
 	import '../app.postcss';
-	import { ConsoleLogWriter } from 'drizzle-orm';
 </script>
 
 <header class="ml-10 mr-10 mt-10">{@html $header}</header>

@@ -8,16 +8,31 @@ import type { Actions } from "./$types";
 
 async function returnData(locals: App.Locals) {
 	const session = await locals.auth.validate();
-	const curQues = await db.selectDistinct({ currentQuestion: user.currentQuestion }).from(user).where(eq(user.id, session?.user.userId!));
-	const cq = await db.select().from(question).where(eq(question.id, curQues[0].currentQuestion!));
+	const userQ = await db.query.user.findFirst({
+		columns: {
+			currentQuestion: true,
+			endTime: true,
+		},
+		where: eq(user.id, session?.user.userId!),
+	});
+	const questionQ = await db.query.question.findFirst({
+		where: eq(question.id, userQ?.currentQuestion!)
+	});
 
-	await new Promise(r => setTimeout(r, 1000))
+	await new Promise(r => setTimeout(r, 1000));
+
+	// If currentQuestion = 0, getTime add 15 minutes to it, put that in final time in db
+	if (Number(questionQ!.id) == 0 && !userQ!.endTime) {
+		const endTime = new Date().getTime() + 15 * 60 * 1000;
+		await db.update(user).set({ endTime: endTime }).where(eq(user.id, session?.user.userId!));
+	}
 
 	return {
-		id: Number(cq[0].id) + 1,
-		paragraph: cq[0].paragraph ? JSON.parse(cq[0].paragraph) : null,
-		asks: cq[0].question,
-		answers: shuffle(JSON.parse(cq[0].answers))
+		id: Number(questionQ!.id) + 1,
+		paragraph: questionQ!.paragraph ? JSON.parse(questionQ!.paragraph) : null,
+		asks: questionQ!.question,
+		endTime: userQ!.endTime,
+		answers: shuffle(JSON.parse(questionQ!.answers))
 	}
 }
 

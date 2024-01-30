@@ -4,9 +4,10 @@
 		paragraph: string;
 	}
 	export interface Question {
-		id: number,
+		id: number;
 		paragraph: ptype | null;
 		asks: string;
+		endTime: number;
 		answers: {
 			id: number;
 			label: string;
@@ -16,10 +17,58 @@
 
 <script lang="ts">
 	import { alpha } from '$lib/misc';
+	import { onMount } from 'svelte';
 	import { header } from '../+layout.svelte';
 	export let question: Question;
 
-	header.update((h) => h+`<h1 class="text-xl font-semibold absolute top-0 mt-10">Current Question: ${question.id}</h1> <h1 class="text-xl font-semibold absolute right-0 mr-10 top-0 mt-10">Time Left: 00:00</h1>`)
+	// minutes is /1000/60 seconds is /1000
+	//
+	onMount(() => {
+		header.set(
+			`<h1 class="text-3xl text-center font-semibold">Slug Salt<h1>
+				<h1 class="text-xl font-semibold absolute top-0 mt-10">Current Question: ${
+					question.id
+				}</h1> <h1 class="text-xl font-semibold absolute right-0 mr-10 top-0 mt-10">Time Left: 
+					${
+						(Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
+							? Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
+							: '00') +
+						':' +
+						(Math.round(
+							((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
+						)
+							? Math.round(
+									((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
+							  )
+							: '00')
+					}
+			
+			</h1>`
+		);
+
+		setInterval(() => {
+			header.set(
+				`<h1 class="text-3xl text-center font-semibold">Slug Salt<h1>
+				<h1 class="text-xl font-semibold absolute top-0 mt-10">Current Question: ${
+					question.id
+				}</h1> <h1 class="text-xl font-semibold absolute right-0 mr-10 top-0 mt-10">Time Left: 
+					${
+						(Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
+							? Math.round(question.endTime / 60000 - new Date().getTime() / 60000)
+							: '00') +
+						':' +
+						(Math.round(
+							((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
+						)
+							? Math.round(
+									((question.endTime / 1000) % 60) - ((new Date().getTime() / 1000) % 60) + 30
+							  )
+							: '00')
+					}
+				`
+			);
+		}, 1000);
+	});
 </script>
 
 {#if question.paragraph}

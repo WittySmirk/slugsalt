@@ -11,10 +11,6 @@ Here is the basic database architecture for the app:
 ```bash
 pnpm run dev
 
-  
-
-
-
 ## Building
 
 To create a production version of your app:

@@ -6,6 +6,7 @@ export const user = sqliteTable('user', {
     currentQuestion: text('currentQuestion').references(() => question.id),
     correct: int('correct').default(0),
     bottled: int('bottled'),
+    endTime: int('endTime'),
     gpa: real('gpa')
 })
 
