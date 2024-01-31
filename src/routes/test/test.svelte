@@ -40,10 +40,10 @@
 				`
 		);
 
-		setInterval(() => {
+		const interval = setInterval(() => {
 			timeLeft = question.endTime - new Date().getTime();
 			if (timeLeft <= 0) {
-				alert("Time has run out for the test");
+				alert('Time has run out for the test');
 				goto('/test/finished');
 			}
 			header.set(
@@ -61,6 +61,7 @@
 				`
 			);
 		}, 1000);
+		return () => clearInterval(interval);
 	});
 </script>
 
