@@ -20,7 +20,7 @@ async function returnData(locals: App.Locals) {
 		where: eq(question.id, userQ?.currentQuestion!)
 	});
 
-	await new Promise(r => setTimeout(r, 1000));
+	await new Promise(r => setTimeout(r, 5000));
 
 	// If currentQuestion = 0, getTime add 15 minutes to it, put that in final time in db
 	let nEndTime = null;

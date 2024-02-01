@@ -6,6 +6,14 @@ Testing if Web Application performance has a greater impact on students with tra
 Here is the basic database architecture for the app:
 <img src="/docs/dbarchitecture.png">
 
+## Benchmarks
+Because of the Research Question the project's goal is to solve, here are the lighthouse scores of the control and bottlenecked versions of the test.
+### Control
+<img src="/docs/PerfOfControl.png">
+
+### Bottle Necked
+<img src="/docs/PerfofBottled.png">
+
 ## Developing
 
 ```bash
@@ -22,9 +30,9 @@ pnpm run build
 ## TODO
 
 - [x] Test Component
-- [ ] Server Side Questions
+- [X] Server Side Questions
   - [x] Bottlenecked Server
-  - [ ] Test entered in database
+  - [X] Test entered in database
   - [X] Server Side Validation
     - [X] Post to Database
 - [X] Authentication
@@ -39,4 +47,4 @@ pnpm run build
     - [x] Spacing
     - [x] Submit button
     - [X] Support for essays
-    - [ ] Persistent timer
+    - [X] Persistent timer

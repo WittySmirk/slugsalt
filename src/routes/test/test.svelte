@@ -18,11 +18,31 @@
 <script lang="ts">
 	import { alpha } from '$lib/misc';
 	import { onMount } from 'svelte';
-	import { header } from '../+layout.svelte';
+	import { header, bottled } from '../+layout.svelte';
 	import { goto } from '$app/navigation';
 	export let question: Question;
 
 	let timeLeft;
+	let painted = true;
+	let shift = true;
+	let andThen = true;
+
+	if ($bottled) {
+		onMount(() => {
+			painted = false;
+			shift = false;
+			andThen = false;
+			(async () => await new Promise((r) => setTimeout(r, 6000)))().then(() => {
+				painted = true;
+				(async () => await new Promise((r) => setTimeout(r, 500)))().then(() => {
+					shift = true;
+					(async () => await new Promise((r) => setTimeout(r, 500)))().then(() => {
+						andThen = true;
+					});
+				});
+			});
+		});
+	}
 	onMount(() => {
 		timeLeft = question.endTime - new Date().getTime();
 		header.set(
@@ -63,43 +83,60 @@
 		}, 1000);
 		return () => clearInterval(interval);
 	});
+
+	function DelayedCheck(node: HTMLLabelElement) {
+		if ($bottled == true) {
+			node.onclick = async (e) => {
+				e.preventDefault();
+				await new Promise((r) => setTimeout(r, 1000));
+				//@ts-ignore
+				document.getElementById(node.attributes[0].value).checked = true;
+			};
+		}
+		return;
+	}
 </script>
 
-{#if question.paragraph}
-	<div class="w-1/2 h-3/4 mr-10 ml-10 bg-slate-50 overflow-y-auto pl-5 pr-5 rounded-xl">
-		<h1 class="text-center font-bold text-3xl">
-			{question.paragraph.title}
-		</h1>
-		<div class="indent-5">
-			{@html question.paragraph.paragraph}
-		</div>
-	</div>
+{#if painted}
+	{#if andThen}
+		{#if question.paragraph}
+			<div class="w-1/2 h-3/4 mr-10 ml-10 bg-slate-50 overflow-y-auto pl-5 pr-5 rounded-xl">
+				<h1 class="text-center font-bold text-3xl">
+					{question.paragraph.title}
+				</h1>
+				<div class="indent-5">
+					{@html question.paragraph.paragraph}
+				</div>
+			</div>
+		{/if}
+	{/if}
+	<form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative" method="POST">
+		<h1 class="text-3xl font-semibold break-words w-full">{question.asks}</h1>
+		{#each question.answers as answer, i}
+			{#if shift}
+				<div class="inline-flex">
+					<input
+						type="radio"
+						name="answers"
+						id={answer.id.toString()}
+						value={answer.id.toString()}
+						class="appearance-none peer"
+					/>
+					<label
+						for={answer.id.toString()}
+						class="text-2xl font-semibold bg-white outline outline-2 rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-400 peer-checked:text-white mr-5"
+						use:DelayedCheck>{alpha[i].toUpperCase()}</label
+					>
+					<label for={answer.id.toString()} class="text-2xl break-words w-full" use:DelayedCheck
+						>{answer.label}<br /></label
+					>
+				</div>
+			{/if}
+		{/each}
+		<input
+			type="submit"
+			value="Next"
+			class="text-3xl absolute w-min h-min bottom-0 right-0 mr-10 rounded-xl bg-green-400 pl-5 pr-5 pt-2 pb-2 text-white font-semibold"
+		/>
+	</form>
 {/if}
-
-<form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative" method="POST">
-	<h1 class="text-3xl font-semibold break-words w-full">{question.asks}</h1>
-	{#each question.answers as answer, i}
-		<div class="inline-flex">
-			<input
-				type="radio"
-				name="answers"
-				id={answer.id.toString()}
-				value={answer.id.toString()}
-				class="appearance-none peer"
-			/>
-			<label
-				for={answer.id.toString()}
-				class="text-2xl font-semibold bg-white outline outline-2 rounded-full w-10 h-10 flex justify-center items-center peer-checked:bg-green-400 peer-checked:text-white mr-5"
-				>{alpha[i].toUpperCase()}</label
-			>
-			<label for={answer.id.toString()} class="text-2xl break-words w-full"
-				>{answer.label}<br /></label
-			>
-		</div>
-	{/each}
-	<input
-		type="submit"
-		value="Next"
-		class="text-3xl absolute w-min h-min bottom-0 right-0 mr-10 rounded-xl bg-green-400 pl-5 pr-5 pt-2 pb-2 text-white font-semibold"
-	/>
-</form>
