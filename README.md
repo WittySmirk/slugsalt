@@ -3,11 +3,12 @@
 Testing if Web Application performance has a greater impact on students with traditionally lower scores
 
 ## Archetecture
-Here is the basic database architecture for the app:
+Here is the basic application flow and database architecture for the app:
 <img src="/docs/dbarchitecture.png">
 
 ## Benchmarks
-Because of the Research Question the project's goal is to solve, here are the lighthouse scores of the control and bottlenecked versions of the test.
+Because of the Research Question the project's goal is to solve, here are the lighthouse scores of the control and bottlenecked versions of the test
+
 ### Control
 <img src="/docs/PerfOfControl.png">
 
@@ -25,6 +26,18 @@ To create a production version of your app:
 
 ```bash
 pnpm run build
+```
+
+You will need a database, and a Google OAuth token and secret.
+This code uses turso which needs a url and token in .env, you can get these using the cli.
+
+Your .env should look like this for the application to work:
+
+```.env
+TURSO_URL=YAPYAPYAP
+TURSO_TOKEN=YAPYAPYAP
+GOOGLE_CLIENT_ID=YAPYAPYAP
+GOOGLE_CLIENT_SECRET=YAPYAPYAP
 ```
 
 ## TODO
