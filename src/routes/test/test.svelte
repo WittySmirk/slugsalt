@@ -97,7 +97,7 @@
 	{#if timeLeft >= 0}
 		{#if andThen}
 			{#if question.paragraph}
-				<div class="w-1/2 h-3/4 mr-10 ml-10 bg-slate-50 overflow-y-auto pl-5 pr-5 rounded-xl">
+				<div class="w-1/2 h-3/4 mb-12 mr-10 ml-10 bg-slate-50 overflow-y-auto pl-5 pr-5 rounded-xl">
 					<h1 class="text-center font-bold text-3xl">
 						{question.paragraph.title}
 					</h1>
@@ -107,7 +107,7 @@
 				</div>
 			{/if}
 		{/if}
-		<form class="w-3/4 h-3/4 rounded-xl flex justify-evenly flex-col relative" method="POST" action="?/next">
+		<form class="w-3/4 h-3/4 mb-2 rounded-xl flex justify-evenly flex-col relative" method="POST" action="?/next">
 			<h1 class="text-3xl font-semibold break-words w-full">{question.asks}</h1>
 			{#each question.answers as answer, i}
 				{#if shift}
