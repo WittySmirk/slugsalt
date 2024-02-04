@@ -14,6 +14,6 @@
             <input class="outline rounded pl-2 text-xl ml-5" type="text" name="GPA" id="GPA" placeholder="Ex: 4.0" required />
             {#if form?.wrongType}<p class="text-red-600">The gpa {form?.GPA} needs to be inbetween 0 and 4. (Ex: 3.5, 2.0)</p>{/if}
         </div>
-        <input type="submit" value="Submit" class="bg-green-400 text-white font-semibold rounded-xl pl-5 pr-5 pt-2 pb-2 text-xl" />
+        <input type="submit" value="Submit" class="bg-red-400 text-white font-semibold rounded-xl pl-5 pr-5 pt-2 pb-2 text-xl" />
     </form>
 </div>

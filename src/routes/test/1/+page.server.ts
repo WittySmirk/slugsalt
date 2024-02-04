@@ -1,6 +1,6 @@
 import { db } from '$lib/drizzle/drizzle';
 import { question, user } from '$lib/drizzle/schema';
-import { eq, sql } from 'drizzle-orm';
+import { count, eq, sql } from 'drizzle-orm';
 import { shuffle } from "$lib/utils";
 
 import type { PageServerLoad } from './$types';
@@ -16,9 +16,7 @@ async function returnData(locals: App.Locals) {
 		},
 		where: eq(user.id, session?.user.userId!),
 	});
-	const questionQ = await db.query.question.findFirst({
-		where: eq(question.id, userQ?.currentQuestion!)
-	});
+	const questionQ = await db.query.question.findFirst({ where: eq(question.id, userQ?.currentQuestion!) });
 
 	await new Promise(r => setTimeout(r, 5000));
 
@@ -44,25 +42,33 @@ export const load: PageServerLoad = async ({ locals }) => {
 };
 
 export const actions: Actions = {
-	default: async ({ request, locals }) => {
+	next: async ({ request, locals }) => {
 		const formData = await request.formData();
 		const answerId = Number(formData.get("answers"));
 
 		const session = await locals.auth.validate();
-		
+
+		const questionLength = (await db.select({count: count()}).from(question))[0].count-1;
+
+
 		//Correct if id = 0
 		if (answerId == 0) {
 			//correct + 1;
 			await db.update(user).set({ correct: sql`correct + 1` }).where(eq(user.id, session?.user.userId!));
 		}
 
-		try {
-			//currentQuestion + 1;
+		if (session?.user.currentQuestion < questionLength) {
 			await db.update(user).set({ currentQuestion: sql`currentQuestion + 1` }).where(eq(user.id, session?.user.userId!));
-		} catch (e) {
-			redirect(302, "/test/finished");
+		} else {
+			await db.update(user).set({ currentQuestion: null }).where(eq(user.id, session?.user.userId!));
+			throw redirect(303, "/test/finished");
 		}
 
 		//refresh
+	},
+	time: async ({ locals }) => {
+		const session = await locals.auth.validate();
+		await db.update(user).set({ currentQuestion: null }).where(eq(user.id, session?.user.userId!));
+		throw redirect(303, "/test/finished");
 	}
 }

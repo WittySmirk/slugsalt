@@ -54,7 +54,7 @@ export const GET = async ({ url, cookies, locals }) => {
 		locals.auth.setSession(session);
 
 		return new Response(null, {
-			status: 302,
+			status: 303,
 			headers: {
 				Location: '/'
 			}

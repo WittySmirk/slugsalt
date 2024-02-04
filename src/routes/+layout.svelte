@@ -20,8 +20,13 @@
 	});
 </script>
 
+<svelte:head>
+	<title>Slug Salt</title>
+</svelte:head>
+
 {#if paint}
-<header class="ml-10 mr-10 mt-10">{@html $header}</header>
+	<header class="ml-10 mr-10 mt-10">{@html $header}</header>
+	<footer class="absolute bottom-5 w-full text-center text-gray-300">This application uses <a class="font-semibold" href="https://satsuite.collegeboard.org/media/pdf/sat-practice-test-6.pdf">released SAT practice questions</a> by the College Board</footer>
 {/if}
 <main class="h-screen flex justify-center items-center">
 	<slot />

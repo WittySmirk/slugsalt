@@ -4,15 +4,7 @@ import { eq } from "drizzle-orm";
 
 import { redirect, fail } from "@sveltejs/kit";
 
-import type { PageServerLoad } from "./$types";
 import type { Actions } from "./$types";
-
-export const load: PageServerLoad = async ({locals}) => {
-    const session = await locals.auth.validate();
-    if (!session || session.user.gpa != null) {
-       redirect(302, "/"); 
-    }
-}
 
 export const actions: Actions = {
     default: async ({request, locals}) => {
@@ -27,7 +19,7 @@ export const actions: Actions = {
         }
         
 	    await db.update(user).set({gpa: Number(GPA)}).where(eq(user.id, session?.user.userId!));
-        redirect(302, "/")
+        throw redirect(303, "/")
         // refresh
     }
 }
