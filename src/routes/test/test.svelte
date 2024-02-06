@@ -81,7 +81,7 @@
 	});
 
 	function DelayedCheck(node: HTMLLabelElement) {
-		if ($bottled == true) {
+		if ($bottled) {
 			node.onclick = async (e) => {
 				e.preventDefault();
 				await new Promise((r) => setTimeout(r, 1000));

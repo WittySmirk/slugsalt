@@ -20,12 +20,12 @@ export const handle: Handle = async ({ event, resolve }) => {
             }
         }
         if (event.url.pathname.startsWith("/test/0")) {
-            if (session.user.bottled) {
+            if (session.user.bottled == 1) {
                 throw redirect(303, "/test/1");
             }
         }
         if (event.url.pathname.startsWith("/test/1")) {
-            if (!session.user.bottled) {
+            if (session.user.bottled == 0) {
                 throw redirect(303, "/test/0");
             }
         }
