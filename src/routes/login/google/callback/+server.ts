@@ -39,7 +39,7 @@ export const GET = async ({ url, cookies, locals }) => {
 				attributes: {
 					googleEmail: googleUser.email,
 					currentQuestion: "0",
-                    bottled: Math.round(Math.random()),
+                    bottled: Math.floor(Math.random() * 2),
 				}
 			});
 			return user;
