@@ -42,7 +42,7 @@ export const actions: Actions = {
 
 		const session = await locals.auth.validate();
 
-		const questionLength = (await db.select({count: count()}).from(question))[0].count-1;
+		const questionLength = (await db.select({ count: count() }).from(question))[0].count - 1;
 
 
 		//Correct if id = 0
@@ -64,5 +64,11 @@ export const actions: Actions = {
 		const session = await locals.auth.validate();
 		await db.update(user).set({ currentQuestion: null }).where(eq(user.id, session?.user.userId!));
 		throw redirect(303, "/test/finished");
+	},
+	switch: async ({ locals }) => {
+		const session = await locals.auth.validate();
+		//@ts-ignore
+		await db.update(user).set({ bottled: !session?.user.bottled }).where(eq(user.id, session?.user.userId!));
+		throw redirect(303, "/");
 	}
 }

@@ -25,7 +25,7 @@
 	let painted = true;
 	let shift = true;
 	let andThen = true;
-	let timeLeft: number = question.endTime - new Date().getTime() ;
+	let timeLeft: number = question.endTime - new Date().getTime();
 
 	if ($bottled) {
 		onMount(() => {
@@ -44,7 +44,7 @@
 		});
 	}
 	onMount(() => {
-		timeLeft= question.endTime - new Date().getTime();
+		timeLeft = question.endTime - new Date().getTime();
 		header.set(
 			`<h1 class="text-3xl text-center font-semibold">Slug Salt<h1>
 				<h1 class="text-xl font-semibold absolute top-0 mt-10">Current Question: ${
@@ -107,7 +107,11 @@
 				</div>
 			{/if}
 		{/if}
-		<form class="w-3/4 h-3/4 mb-2 rounded-xl flex justify-evenly flex-col relative" method="POST" action="?/next">
+		<form
+			class="w-3/4 h-3/4 mb-2 rounded-xl flex justify-evenly flex-col relative"
+			method="POST"
+			action="?/next"
+		>
 			<h1 class="text-3xl font-semibold break-words w-full">{question.asks}</h1>
 			{#each question.answers as answer, i}
 				{#if shift}
@@ -134,6 +138,12 @@
 				type="submit"
 				value="Next"
 				class="text-3xl absolute w-min h-min bottom-0 right-0 mr-10 rounded-xl bg-red-400 pl-5 pr-5 pt-2 pb-2 text-white font-semibold"
+			/>
+			<input
+				type="submit"
+				formaction="?/switch"
+				value="Change bottled"
+				class="text-3xl absolute w-min h-min bottom-0 left-0 mr-10 rounded-xl bg-slate-400 pl-5 pr-5 pt-2 pb-2 text-white font-semibold"
 			/>
 		</form>
 	{:else}
