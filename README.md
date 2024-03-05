@@ -43,7 +43,7 @@ GOOGLE_CLIENT_SECRET=YAPYAPYAP
 ## Conclusion
 The AP Research method this web application was created for is complete! Here is the results also available at <a href="https://slugsalt.com/about">the about page.</a>
 
-<img src="/static/chart.png>
+<img src="/static/chart.png">
 
 If you are aiming to reproduce the method, the version of the application used for actual testing is on commit <a href="https://github.com/WittySmirk/slugsalt/commit/940d279d4fcdb415f670d150142e53197db4f38d">940d279.</a>
 
