@@ -6,6 +6,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 
     const session = await event.locals.auth.validate();
 
+    if (event.url.pathname.startsWith("/about") ){
+        return await resolve(event);
+    }
+
     if (event.url.pathname.startsWith("/test")) {
         if (!session) {
             throw redirect(303, "/");

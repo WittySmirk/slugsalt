@@ -33,10 +33,9 @@
 			href="https://satsuite.collegeboard.org/media/pdf/sat-practice-test-6.pdf"
 			>released SAT practice questions</a
 		>
-		by the College Board. This application was created by Wyatt Degenhart and the source code is
-		available at
+		by the College Board. The source code for the application is available at
 		<a class="font-semibold" href="https://github.com/WittySmirk/slugsalt">this Github Repository</a
-		>.
+		>. To learn more visit <a class="font-semibold" href="/about">here</a>.
 	</footer>
 {/if}
 <main class="h-screen flex justify-center items-center">
